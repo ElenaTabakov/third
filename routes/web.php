@@ -12,4 +12,4 @@
  */
 
 Route::get('/', 'TasksController@showPage');
-Route::get('task/{id}', 'TasksController@passID')->where('id', '[1-4]');
+Route::get('task/{id}', 'TasksController@passID');

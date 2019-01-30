@@ -19,13 +19,23 @@ class TasksController extends Controller
 
     public function passID($id)
     {
-        $count = DB::table('tasks')->where('id', $id)->value('counter');
-        DB::table('tasks')->where('id', $id)->update(['counter' => ++$count]);
+        $idTask = DB::table('tasks')->where('id', $id)->first();
 
-        DB::table('logs')->insert([
-            'task_id' => $id,
-            'status' => 0,
-        ]);
+        if (!$idTask) {
+
+            return abort(404);
+
+        } else {
+
+            $count = DB::table('tasks')->where('id', $id)->value('counter');
+            DB::table('tasks')->where('id', $id)->update(['counter' => ++$count]);
+
+            DB::table('logs')->insert([
+                'task_id' => $id,
+                'status' => 0,
+            ]);
+
+        }
 
         return redirect('/');
     }
